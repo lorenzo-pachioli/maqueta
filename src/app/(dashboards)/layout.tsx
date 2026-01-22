@@ -1,4 +1,5 @@
 import { BottomNav } from '@/components/shared/bottom-nav';
+import { Header } from '@/components/shared/header';
 
 export default function DashboardLayout({
   children,
@@ -7,11 +8,12 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="relative min-h-screen bg-background">
-      <div className="mx-auto max-w-lg">
-        <main className="flex-1 pb-24">{children}</main>
+      <div className="mx-auto max-w-screen-lg">
+        <Header />
+        <main className="flex-1 pb-24 md:pb-0">{children}</main>
       </div>
-      <div className="fixed bottom-0 left-0 right-0 z-50">
-        <div className="mx-auto max-w-lg bg-background">
+      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
+        <div className="mx-auto max-w-lg bg-background/95 backdrop-blur-sm">
           <BottomNav />
         </div>
       </div>

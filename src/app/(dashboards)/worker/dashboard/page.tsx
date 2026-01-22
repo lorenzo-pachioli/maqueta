@@ -1,17 +1,34 @@
 'use client';
 
-import { DollarSign, List, Clock, Power } from 'lucide-react';
+import { DollarSign, List, Clock, Power, BarChart2, Check, X } from 'lucide-react';
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import { Button } from '@/components/ui/button';
+
+const earningsData = [
+  { name: 'Lun', total: Math.floor(Math.random() * 200) + 50 },
+  { name: 'Mar', total: Math.floor(Math.random() * 200) + 50 },
+  { name: 'Mié', total: Math.floor(Math.random() * 200) + 50 },
+  { name: 'Jue', total: Math.floor(Math.random() * 200) + 50 },
+  { name: 'Vie', total: Math.floor(Math.random() * 200) + 50 },
+  { name: 'Sáb', total: Math.floor(Math.random() * 200) + 50 },
+  { name: 'Dom', total: 0 },
+];
+
+const mockRequests = [
+    { id: 1, user: 'Ana', service: 'Entrega de Paquetes', time: '14:00' },
+    { id: 2, user: 'Pedro', service: 'Transporte Personal', time: '16:30' },
+]
 
 export default function WorkerDashboardPage() {
   const [isAvailable, setIsAvailable] = React.useState(true);
 
   return (
-    <div className="p-4 space-y-6">
-      <header className="pt-6">
+    <div className="p-4 md:p-8 space-y-6">
+      <header className="pt-6 md:pt-0">
         <h1 className="text-3xl font-bold">Panel de Trabajador</h1>
         <p className="text-muted-foreground">Gestiona tu perfil y disponibilidad.</p>
       </header>
@@ -29,9 +46,57 @@ export default function WorkerDashboardPage() {
               onCheckedChange={setIsAvailable}
             />
             <Label htmlFor="availability-switch" className="text-lg font-semibold">
-              {isAvailable ? 'Disponible' : 'No Disponible'}
+              {isAvailable ? 'Disponible para trabajos' : 'No Disponible'}
             </Label>
           </div>
+        </CardContent>
+      </Card>
+
+      <section>
+          <h2 className="text-xl font-semibold mb-4">Solicitudes Entrantes</h2>
+           <div className="space-y-4">
+              {mockRequests.map(req => (
+                  <Card key={req.id}>
+                      <CardContent className="p-4 flex items-center justify-between">
+                          <div>
+                              <p className="font-semibold">{req.service} para {req.user}</p>
+                              <p className="text-sm text-muted-foreground">Hoy a las {req.time}</p>
+                          </div>
+                          <div className="flex gap-2">
+                              <Button size="icon" variant="outline" className="text-red-500 border-red-500 hover:bg-red-500 hover:text-white"><X className="h-4 w-4"/></Button>
+                              <Button size="icon" className="bg-green-500 hover:bg-green-600"><Check className="h-4 w-4"/></Button>
+                          </div>
+                      </CardContent>
+                  </Card>
+              ))}
+          </div>
+      </section>
+      
+      <Card>
+        <CardHeader>
+            <CardTitle className='flex items-center gap-2'><BarChart2 className="h-5 w-5"/> Ganancias de la Semana</CardTitle>
+            <CardDescription>$348.50 esta semana</CardDescription>
+        </CardHeader>
+        <CardContent className="pl-2">
+            <ResponsiveContainer width="100%" height={200}>
+            <BarChart data={earningsData}>
+                <XAxis
+                dataKey="name"
+                stroke="#888888"
+                fontSize={12}
+                tickLine={false}
+                axisLine={false}
+                />
+                <YAxis
+                stroke="#888888"
+                fontSize={12}
+                tickLine={false}
+                axisLine={false}
+                tickFormatter={(value) => `$${value}`}
+                />
+                <Bar dataKey="total" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+            </BarChart>
+            </ResponsiveContainer>
         </CardContent>
       </Card>
       
