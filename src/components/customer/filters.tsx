@@ -25,13 +25,13 @@ export function Filters({ selectedServices, onServiceSelect }: ServiceSelectorPr
                     className={cn(
                       'cursor-pointer transition-all hover:shadow-md',
                       selectedServices.includes(service.name)
-                        ? 'ring-2 ring-primary ring-offset-2 ring-offset-background'
+                        ? 'ring-2 ring-accent ring-offset-2 ring-offset-background'
                         : 'ring-0'
                     )}
                     onClick={() => onServiceSelect(service.name)}
                   >
                     <CardContent className="p-4 flex flex-col items-center justify-center gap-2">
-                      <service.icon className="h-8 w-8 text-primary" />
+                      <service.icon className="h-8 w-8 text-accent" />
                       <span className="text-sm font-semibold text-center">
                         {service.name}
                       </span>
@@ -53,13 +53,13 @@ export function Filters({ selectedServices, onServiceSelect }: ServiceSelectorPr
                   className={cn(
                     'cursor-pointer transition-all hover:shadow-md',
                     selectedServices.includes(service.name)
-                      ? 'ring-2 ring-primary ring-offset-2 ring-offset-background'
+                      ? 'ring-2 ring-accent ring-offset-2 ring-offset-background'
                       : 'ring-0'
                   )}
                   onClick={() => onServiceSelect(service.name)}
                 >
                   <CardContent className="p-4 flex flex-col items-center justify-center gap-2">
-                    <service.icon className="h-8 w-8 text-primary" />
+                    <service.icon className="h-8 w-8 text-accent" />
                     <span className="text-sm font-semibold text-center">
                       {service.name}
                     </span>

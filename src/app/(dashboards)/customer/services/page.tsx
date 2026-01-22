@@ -42,12 +42,12 @@ export default function ServicesPage() {
                     className={cn(
                       'cursor-pointer transition-all hover:shadow-md',
                       selectedService === service.name
-                        ? 'ring-2 ring-primary ring-offset-2 ring-offset-background'
+                        ? 'ring-2 ring-accent ring-offset-2 ring-offset-background'
                         : 'ring-0'
                     )}
                   >
                     <CardContent className="p-4 flex flex-col items-center justify-center text-center gap-2">
-                      <service.icon className="h-10 w-10 text-primary mx-auto" />
+                      <service.icon className="h-10 w-10 text-accent mx-auto" />
                       <p className="font-semibold">{service.name}</p>
                     </CardContent>
                   </Card>

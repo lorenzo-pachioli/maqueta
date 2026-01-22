@@ -30,7 +30,7 @@ export function WorkerCard({ worker }: WorkerCardProps) {
                 <CardDescription>{worker.serviceType}</CardDescription>
                 <div className="flex items-center gap-4 pt-2">
                     <div className="flex items-center gap-1">
-                    <Star className="h-4 w-4 fill-primary text-primary" />
+                    <Star className="h-4 w-4 fill-accent text-accent" />
                     <span className="text-sm font-medium">{worker.rating.toFixed(1)}</span>
                     </div>
                     <div className="flex items-center gap-1">
