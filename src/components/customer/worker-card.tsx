@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { MapPin, Star } from 'lucide-react';
+import Link from 'next/link';
 
 import type { Worker } from '@/lib/mock-data';
 import { Badge } from '@/components/ui/badge';
@@ -45,8 +46,10 @@ export function WorkerCard({ worker }: WorkerCardProps) {
             </div>
         </CardContent>
       <CardFooter className="p-0 pt-4">
-        <Button className="w-full" size="lg">
-          Ver disponibilidad y contratar
+        <Button asChild className="w-full" size="lg">
+          <Link href={`/customer/worker/${worker.id}`}>
+            Ver disponibilidad y contratar
+          </Link>
         </Button>
       </CardFooter>
     </Card>
