@@ -31,13 +31,13 @@ export function Header() {
   const homeHref = isWorker ? '/worker/dashboard' : '/customer/dashboard';
 
   return (
-    <header className="hidden md:block bg-accent shadow-sm">
-      <div className="mx-auto max-w-screen-lg flex items-center justify-between p-4">
+    <header className="bg-accent shadow-sm">
+      <div className="mx-auto max-w-screen-lg flex items-center justify-center md:justify-between p-4">
         <Link href={homeHref} className="flex items-center gap-2 font-bold text-lg text-accent-foreground">
           <Truck className="h-7 w-7" />
           <span>Transpo</span>
         </Link>
-        <nav className="flex items-center gap-6 text-sm font-medium">
+        <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           {navItems.map((item) => {
               const isActive = (item.href.endsWith('/dashboard'))
                   ? pathname.includes('/dashboard')
@@ -57,12 +57,14 @@ export function Header() {
               );
           })}
         </nav>
-        <Button asChild variant="ghost" size="sm" className="text-accent-foreground/80 hover:text-accent-foreground hover:bg-black/10">
-          <Link href="/">
-            <LogOut className="mr-2 h-4 w-4" />
-            Cerrar sesión
-          </Link>
-        </Button>
+        <div className='hidden md:block'>
+          <Button asChild variant="ghost" size="sm" className="text-accent-foreground/80 hover:text-accent-foreground hover:bg-black/10">
+            <Link href="/">
+              <LogOut className="mr-2 h-4 w-4" />
+              Cerrar sesión
+            </Link>
+          </Button>
+        </div>
       </div>
     </header>
   );
