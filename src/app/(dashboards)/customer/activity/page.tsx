@@ -17,6 +17,13 @@ import { MessageSquare } from 'lucide-react';
 
 const mockActivities = [
   {
+    id: 'act5',
+    worker: mockWorkers[4],
+    date: '2024-07-20',
+    cost: 35.0,
+    status: 'Pendiente',
+  },
+  {
     id: 'act1',
     worker: mockWorkers[0],
     date: '2024-07-15',
@@ -66,7 +73,14 @@ export default function ActivityPage() {
                     <div className='text-left'>
                         <p className="text-lg font-semibold">{activity.worker.serviceType}</p>
                     </div>
-                    <Badge variant={activity.status === 'Completado' ? 'default' : 'destructive'} className={activity.status === 'Completado' ? 'bg-green-500' : ''}>
+                    <Badge 
+                        variant={
+                            activity.status === 'Completado' ? 'default' 
+                            : activity.status === 'Cancelado' ? 'destructive'
+                            : 'secondary'
+                        }
+                        className={activity.status === 'Completado' ? 'bg-green-500' : ''}
+                    >
                         {activity.status}
                     </Badge>
                 </div>
