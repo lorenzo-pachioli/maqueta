@@ -1,38 +1,49 @@
 'use client';
 
-import { LogOut, Truck } from 'lucide-react';
+import { LogOut, Truck, BarChart2 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useMemo } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-const navItems = [
+const customerNavItems = [
   { href: '/customer/dashboard', label: 'Inicio' },
   { href: '/services', label: 'Servicios' },
   { href: '/activity', label: 'Actividad' },
   { href: '/account', label: 'Cuenta' },
 ];
 
+const workerNavItems = [
+  { href: '/worker/dashboard', label: 'Inicio' },
+  { href: '/activity', label: 'Actividad' },
+  { href: '/worker/earnings', label: 'Ganancias' },
+  { href: '/account', label: 'Perfil' },
+];
+
+
 export function Header() {
   const pathname = usePathname();
+  const isWorker = pathname.includes('/worker');
+
+  const navItems = useMemo(() => isWorker ? workerNavItems : customerNavItems, [isWorker]);
+  const homeHref = isWorker ? '/worker/dashboard' : '/customer/dashboard';
 
   return (
     <header className="hidden md:flex items-center justify-between p-4 border-b bg-card/95 backdrop-blur-sm">
-      <Link href="/customer/dashboard" className="flex items-center gap-2 font-bold text-lg">
+      <Link href={homeHref} className="flex items-center gap-2 font-bold text-lg">
         <Truck className="h-7 w-7 text-primary" />
         <span>Transpo</span>
       </Link>
       <nav className="flex items-center gap-6 text-sm font-medium">
         {navItems.map((item) => {
-            const isActive = item.href === '/customer/dashboard'
+            const isActive = (item.href === '/customer/dashboard' || item.href === '/worker/dashboard')
                 ? pathname.includes('/dashboard')
-                : pathname === item.href;
-
-            const finalHref = pathname.includes('/worker') && item.href === '/customer/dashboard' ? '/worker/dashboard' : item.href;
+                : pathname.startsWith(item.href);
 
             return (
-                <Link href={finalHref} key={item.label}>
+                <Link href={item.href} key={item.label}>
                     <span
                     className={cn(
                         'text-muted-foreground transition-colors hover:text-primary',
