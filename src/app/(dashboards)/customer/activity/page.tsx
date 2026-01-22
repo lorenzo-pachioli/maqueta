@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import {
   Accordion,
@@ -13,7 +14,7 @@ import { Separator } from '@/components/ui/separator';
 import { mockWorkers } from '@/lib/mock-data';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { ChatMock } from '@/components/shared/chat-mock';
-import { MessageSquare } from 'lucide-react';
+import { MessageSquare, ArrowRight } from 'lucide-react';
 
 const mockActivities = [
   {
@@ -104,10 +105,18 @@ export default function ActivityPage() {
                 </div>
                 <Separator />
                 <div className="flex justify-between items-center">
-                  <Button variant="outline" onClick={() => setSelectedChatWorker(activity.worker)}>
-                      <MessageSquare className="mr-2 h-4 w-4" />
-                      Contactar
-                  </Button>
+                  <div className="flex items-center gap-2">
+                    <Button variant="outline" onClick={() => setSelectedChatWorker(activity.worker)}>
+                        <MessageSquare className="mr-2 h-4 w-4" />
+                        Contactar
+                    </Button>
+                    <Button asChild variant="secondary">
+                      <Link href={`/customer/worker/${activity.worker.id}`}>
+                        Ir
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </div>
                   <div className='text-right'>
                       <p className="text-sm text-muted-foreground">Costo Total</p>
                       <p className="font-bold text-lg">${activity.cost.toFixed(2)}</p>
