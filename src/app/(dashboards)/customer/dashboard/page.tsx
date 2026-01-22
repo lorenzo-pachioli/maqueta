@@ -50,7 +50,7 @@ export default function CustomerDashboardPage() {
             data-ai-hint={mapInfo.imageHint}
           />
         )}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-black/10">
           {filteredWorkers.map((worker) => (
             <Button
               key={worker.id}
