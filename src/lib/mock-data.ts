@@ -15,6 +15,14 @@ export type Worker = {
   availability: string[];
 };
 
+export type Customer = {
+  id: string;
+  name: string;
+  avatarUrl: string;
+  imageHint: string;
+};
+
+
 const workerAvatars = PlaceHolderImages.filter(img => img.id.startsWith('worker-'));
 
 export const serviceCategories = [
@@ -153,4 +161,56 @@ export const mockWorkers: Worker[] = [
     lng: 50,
     availability: sampleAvailability8,
   },
+];
+
+const customerAvatars = [...workerAvatars].reverse(); 
+
+export const mockCustomers: Customer[] = [
+  { id: 'cust1', name: 'Ana C.', avatarUrl: customerAvatars[0]?.imageUrl || '', imageHint: customerAvatars[0]?.imageHint || '' },
+  { id: 'cust2', name: 'Pedro M.', avatarUrl: customerAvatars[1]?.imageUrl || '', imageHint: customerAvatars[1]?.imageHint || '' },
+  { id: 'cust3', name: 'Mariana P.', avatarUrl: customerAvatars[2]?.imageUrl || '', imageHint: customerAvatars[2]?.imageHint || '' },
+  { id: 'cust4', name: 'Luis G.', avatarUrl: customerAvatars[3]?.imageUrl || '', imageHint: customerAvatars[3]?.imageHint || '' },
+];
+
+export const mockWorkerActivities = [
+  {
+    id: 'act1',
+    customer: mockCustomers[0],
+    serviceType: 'Transporte Personal',
+    date: '2024-07-15',
+    cost: 45.0,
+    status: 'Completado',
+  },
+  {
+    id: 'act2',
+    customer: mockCustomers[1],
+    serviceType: 'Entrega de Paquetes',
+    date: '2024-07-12',
+    cost: 75.0,
+    status: 'Completado',
+  },
+  {
+    id: 'act3',
+    customer: mockCustomers[2],
+    serviceType: 'Transporte Personal',
+    date: '2024-07-10',
+    cost: 24.0,
+    status: 'Pagado',
+  },
+  {
+    id: 'act4',
+    customer: mockCustomers[3],
+    serviceType: 'Mudanza Ligera',
+    date: '2024-07-08',
+    cost: 28.0,
+    status: 'Completado',
+  },
+  {
+    id: 'act5',
+    customer: mockCustomers[0],
+    serviceType: 'Mandados',
+    date: '2024-07-22',
+    cost: 15.0,
+    status: 'Pendiente',
+  }
 ];
