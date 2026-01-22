@@ -73,7 +73,7 @@ export default function WorkerActivityPage() {
                         Contactar
                     </Button>
                     <Button asChild variant="secondary">
-                      <Link href={`/worker/customer/${activity.customer.id}`}>
+                      <Link href={`/worker/customer/${activity.customer.id}?service=${encodeURIComponent(activity.serviceType)}&date=${activity.date}`}>
                         Ir
                         <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
