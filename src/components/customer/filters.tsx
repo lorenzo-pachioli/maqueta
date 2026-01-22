@@ -46,7 +46,7 @@ export function Filters({ selectedServices, onServiceSelect }: ServiceSelectorPr
         return (
           <div key={category.name}>
             <h2 className="text-xl font-bold mb-2">{category.name}</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               {category.services.map((service) => (
                 <Card
                   key={service.name}
