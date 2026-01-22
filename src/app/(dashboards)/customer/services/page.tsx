@@ -17,6 +17,10 @@ export default function ServicesPage() {
     return mockWorkers.filter((worker) => worker.serviceType === selectedService);
   }, [selectedService]);
 
+  const handleServiceClick = (serviceName: string) => {
+    setSelectedService((prev) => (prev === serviceName ? null : serviceName));
+  };
+
   return (
     <div className="grid md:grid-cols-[1fr_400px] h-[calc(100vh-81px)]">
       {/* Left Column: Services */}
@@ -34,7 +38,7 @@ export default function ServicesPage() {
                 {category.services.map((service) => (
                   <Card
                     key={service.name}
-                    onClick={() => setSelectedService(service.name)}
+                    onClick={() => handleServiceClick(service.name)}
                     className={cn(
                       'cursor-pointer transition-all hover:shadow-md',
                       selectedService === service.name
