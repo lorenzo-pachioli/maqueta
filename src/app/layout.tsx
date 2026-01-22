@@ -3,8 +3,8 @@ import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Transpo Marketplace',
-  description: 'Un marketplace de servicios de transporte.',
+  title: 'Tu Chamba Libre',
+  description: 'Tu marketplace de servicios.',
 };
 
 export default function RootLayout({

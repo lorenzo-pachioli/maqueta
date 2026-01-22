@@ -1,6 +1,6 @@
 'use client';
 
-import { LogOut, Truck } from 'lucide-react';
+import { LogOut, Briefcase } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
@@ -31,11 +31,11 @@ export function Header() {
   const homeHref = isWorker ? '/worker/dashboard' : '/customer/dashboard';
 
   return (
-    <header className="bg-accent shadow-sm">
+    <header className="bg-accent shadow-sm sticky top-0 z-40">
       <div className="mx-auto max-w-screen-lg flex items-center justify-center md:justify-between p-4">
         <Link href={homeHref} className="flex items-center gap-2 font-bold text-lg text-accent-foreground">
-          <Truck className="h-7 w-7" />
-          <span>Transpo</span>
+          <Briefcase className="h-7 w-7" />
+          <span>Tu Chamba Libre</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           {navItems.map((item) => {

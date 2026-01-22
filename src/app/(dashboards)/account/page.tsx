@@ -18,7 +18,7 @@ export default function AccountPage() {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="name">Nombre</Label>
-            <Input id="name" placeholder="Tu nombre completo" defaultValue="Usuario de Transpo" />
+            <Input id="name" placeholder="Tu nombre completo" defaultValue="Usuario de Tu Chamba Libre" />
           </div>
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>

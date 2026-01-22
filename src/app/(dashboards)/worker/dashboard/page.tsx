@@ -37,7 +37,7 @@ export default function WorkerDashboardPage() {
 
   return (
     <div className="p-4 md:p-8 space-y-6">
-      <header className="pt-6 md:pt-0">
+      <header>
         <h1 className="text-3xl font-bold">Panel de Trabajador</h1>
         <p className="text-muted-foreground">Gestiona tu perfil y disponibilidad.</p>
       </header>
