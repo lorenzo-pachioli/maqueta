@@ -127,9 +127,6 @@ function AvailabilityPicker({ selectedSlots, onChange }: AvailabilityPickerProps
 const customerSchema = z.object({
   name: z.string().min(2, { message: 'El nombre debe tener al menos 2 caracteres.' }),
   location: z.string().min(3, { message: 'La ubicación es requerida.' }),
-  serviceType: z.string({
-    required_error: 'Por favor seleccione un tipo de servicio.',
-  }),
 });
 
 const workerSchema = z.object({
@@ -156,7 +153,7 @@ export default function OnboardingPage({ params }: OnboardingPageProps) {
   const form = useForm({
     resolver: zodResolver(isCustomer ? customerSchema : workerSchema),
     defaultValues: isCustomer
-      ? { name: '', location: '', serviceType: undefined }
+      ? { name: '', location: '' }
       : {
           name: '',
           serviceType: undefined,
@@ -222,40 +219,35 @@ export default function OnboardingPage({ params }: OnboardingPageProps) {
                 />
               )}
 
-              <FormField
-                control={form.control}
-                name="serviceType"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {isCustomer
-                        ? 'Tipo de servicio que suele necesitar'
-                        : 'Tipo de servicio ofrecido'}
-                    </FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Seleccione un servicio" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {serviceTypes.map((type) => (
-                          <SelectItem key={type} value={type}>
-                            {type}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
               {!isCustomer && (
                 <>
+                  <FormField
+                    control={form.control}
+                    name="serviceType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Tipo de servicio ofrecido</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Seleccione un servicio" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {serviceTypes.map((type) => (
+                              <SelectItem key={type} value={type}>
+                                {type}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                   <FormField
                     control={form.control}
                     name="rate"
