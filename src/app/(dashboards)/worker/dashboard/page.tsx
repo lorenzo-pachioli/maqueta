@@ -1,12 +1,13 @@
 'use client';
 
-import { DollarSign, List, Clock, Power, BarChart2, Check, X } from 'lucide-react';
+import { DollarSign, List, Clock, Power, BarChart2, MessageSquare } from 'lucide-react';
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
-import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { ChatMock } from '@/components/shared/chat-mock';
 
 const earningsData = [
   { name: 'Lun', total: Math.floor(Math.random() * 200) + 50 },
@@ -18,13 +19,21 @@ const earningsData = [
   { name: 'Dom', total: 0 },
 ];
 
-const mockRequests = [
+type MockRequest = {
+  id: number;
+  user: string;
+  service: string;
+  time: string;
+};
+
+const mockRequests: MockRequest[] = [
     { id: 1, user: 'Ana', service: 'Entrega de Paquetes', time: '14:00' },
     { id: 2, user: 'Pedro', service: 'Transporte Personal', time: '16:30' },
 ]
 
 export default function WorkerDashboardPage() {
   const [isAvailable, setIsAvailable] = React.useState(true);
+  const [selectedRequest, setSelectedRequest] = React.useState<MockRequest | null>(null);
 
   return (
     <div className="p-4 md:p-8 space-y-6">
@@ -56,15 +65,15 @@ export default function WorkerDashboardPage() {
           <h2 className="text-xl font-semibold mb-4">Solicitudes Entrantes</h2>
            <div className="space-y-4">
               {mockRequests.map(req => (
-                  <Card key={req.id}>
+                  <Card key={req.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => setSelectedRequest(req)}>
                       <CardContent className="p-4 flex items-center justify-between">
                           <div>
                               <p className="font-semibold">{req.service} para {req.user}</p>
                               <p className="text-sm text-muted-foreground">Hoy a las {req.time}</p>
                           </div>
-                          <div className="flex gap-2">
-                              <Button size="icon" variant="outline" className="text-red-500 border-red-500 hover:bg-red-500 hover:text-white"><X className="h-4 w-4"/></Button>
-                              <Button size="icon" className="bg-green-500 hover:bg-green-600"><Check className="h-4 w-4"/></Button>
+                           <div className="flex items-center gap-2 text-muted-foreground">
+                            <MessageSquare className="h-5 w-5"/>
+                            <span>Chatear</span>
                           </div>
                       </CardContent>
                   </Card>
@@ -134,7 +143,12 @@ export default function WorkerDashboardPage() {
           <p className="text-sm text-muted-foreground">9:00 AM - 5:00 PM</p>
         </CardContent>
       </Card>
-
+      
+      <Dialog open={!!selectedRequest} onOpenChange={(isOpen) => !isOpen && setSelectedRequest(null)}>
+        <DialogContent className="max-w-lg p-0">
+          {selectedRequest && <ChatMock contactName={selectedRequest.user} />}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
