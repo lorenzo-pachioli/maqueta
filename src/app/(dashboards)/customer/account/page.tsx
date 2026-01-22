@@ -2,6 +2,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { LogOut } from 'lucide-react';
+import Link from 'next/link';
 
 export default function AccountPage() {
   return (
@@ -44,6 +46,15 @@ export default function AccountPage() {
            <p className="text-muted-foreground">Opciones de notificaciones y preferencias de la aplicación aparecerán aquí.</p>
         </CardContent>
       </Card>
+
+      <div className="pt-4">
+        <Button asChild variant="outline" className="w-full">
+          <Link href="/">
+            <LogOut className="mr-2 h-4 w-4" />
+            Cerrar sesión
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 }
