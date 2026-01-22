@@ -9,16 +9,16 @@ import { cn } from '@/lib/utils';
 
 const customerNavItems = [
   { href: '/customer/dashboard', icon: Home, label: 'Inicio' },
-  { href: '/services', icon: LayoutGrid, label: 'Servicios' },
-  { href: '/activity', icon: List, label: 'Actividad' },
-  { href: '/account', icon: User, label: 'Cuenta' },
+  { href: '/customer/services', icon: LayoutGrid, label: 'Servicios' },
+  { href: '/customer/activity', icon: List, label: 'Actividad' },
+  { href: '/customer/account', icon: User, label: 'Cuenta' },
 ];
 
 const workerNavItems = [
     { href: '/worker/dashboard', icon: Home, label: 'Inicio' },
-    { href: '/activity', icon: List, label: 'Actividad' },
+    { href: '/worker/activity', icon: List, label: 'Actividad' },
     { href: '/worker/earnings', icon: BarChart2, label: 'Ganancias' },
-    { href: '/account', icon: User, label: 'Perfil' },
+    { href: '/worker/account', icon: User, label: 'Perfil' },
 ];
 
 export function BottomNav() {
@@ -31,7 +31,7 @@ export function BottomNav() {
     <nav className="border-t border-border bg-card/95 backdrop-blur-sm">
       <div className="grid h-16 grid-cols-4 items-center">
         {navItems.map((item) => {
-          const isActive = (item.href === '/customer/dashboard' || item.href === '/worker/dashboard')
+          const isActive = (item.href.endsWith('/dashboard'))
             ? pathname.includes('/dashboard')
             : pathname.startsWith(item.href);
 

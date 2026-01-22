@@ -1,6 +1,6 @@
 'use client';
 
-import { LogOut, Truck, BarChart2 } from 'lucide-react';
+import { LogOut, Truck } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
@@ -10,16 +10,16 @@ import { cn } from '@/lib/utils';
 
 const customerNavItems = [
   { href: '/customer/dashboard', label: 'Inicio' },
-  { href: '/services', label: 'Servicios' },
-  { href: '/activity', label: 'Actividad' },
-  { href: '/account', label: 'Cuenta' },
+  { href: '/customer/services', label: 'Servicios' },
+  { href: '/customer/activity', label: 'Actividad' },
+  { href: '/customer/account', label: 'Cuenta' },
 ];
 
 const workerNavItems = [
   { href: '/worker/dashboard', label: 'Inicio' },
-  { href: '/activity', label: 'Actividad' },
+  { href: '/worker/activity', label: 'Actividad' },
   { href: '/worker/earnings', label: 'Ganancias' },
-  { href: '/account', label: 'Perfil' },
+  { href: '/worker/account', label: 'Perfil' },
 ];
 
 
@@ -38,7 +38,7 @@ export function Header() {
       </Link>
       <nav className="flex items-center gap-6 text-sm font-medium">
         {navItems.map((item) => {
-            const isActive = (item.href === '/customer/dashboard' || item.href === '/worker/dashboard')
+            const isActive = (item.href.endsWith('/dashboard'))
                 ? pathname.includes('/dashboard')
                 : pathname.startsWith(item.href);
 
