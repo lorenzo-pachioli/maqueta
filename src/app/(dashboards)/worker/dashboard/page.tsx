@@ -1,13 +1,35 @@
 'use client';
 
-import { DollarSign, List, Clock, Power, BarChart2, MessageSquare } from 'lucide-react';
+import { DollarSign, List, Clock, Power, BarChart2, MessageSquare, Plus } from 'lucide-react';
 import React from 'react';
+import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger, DialogClose } from '@/components/ui/dialog';
 import { ChatMock } from '@/components/shared/chat-mock';
+import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { serviceTypes } from '@/lib/mock-data';
+
 
 const earningsData = [
   { name: 'Lun', total: Math.floor(Math.random() * 200) + 50 },
@@ -31,9 +53,30 @@ const mockRequests: MockRequest[] = [
     { id: 2, user: 'Pedro', service: 'Transporte Personal', time: '16:30' },
 ]
 
+const addServiceSchema = z.object({
+  serviceType: z.string({
+    required_error: 'Por favor seleccione un tipo de servicio.',
+  }),
+});
+
 export default function WorkerDashboardPage() {
   const [isAvailable, setIsAvailable] = React.useState(true);
   const [selectedRequest, setSelectedRequest] = React.useState<MockRequest | null>(null);
+  const [isAddServiceDialogOpen, setIsAddServiceDialogOpen] = React.useState(false);
+
+  const form = useForm<z.infer<typeof addServiceSchema>>({
+    resolver: zodResolver(addServiceSchema),
+    defaultValues: {
+      serviceType: undefined,
+    },
+  });
+
+  function onAddService(data: z.infer<typeof addServiceSchema>) {
+    console.log('Adding service:', data);
+    // This would be a call to an API in a real app
+    setIsAddServiceDialogOpen(false);
+    form.reset();
+  }
 
   return (
     <div className="p-4 md:p-8 space-y-6">
@@ -124,7 +167,62 @@ export default function WorkerDashboardPage() {
         <Card>
           <CardHeader className="flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Servicios</CardTitle>
-            <List className="h-4 w-4 text-muted-foreground" />
+            <div className="flex items-center">
+              <Dialog open={isAddServiceDialogOpen} onOpenChange={setIsAddServiceDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Plus className="h-4 w-4 text-muted-foreground" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Agregar nuevo servicio</DialogTitle>
+                    <DialogDescription>
+                      Selecciona un nuevo servicio que quieras ofrecer.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onAddService)} className="space-y-6">
+                      <FormField
+                        control={form.control}
+                        name="serviceType"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Tipo de servicio</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Seleccione un servicio" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {serviceTypes.map((type) => (
+                                  <SelectItem key={type} value={type}>
+                                    {type}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <DialogFooter>
+                        <DialogClose asChild>
+                          <Button type="button" variant="outline">Cancelar</Button>
+                        </DialogClose>
+                        <Button type="submit">Agregar</Button>
+                      </DialogFooter>
+                    </form>
+                  </Form>
+                </DialogContent>
+              </Dialog>
+              <Button asChild variant="ghost" size="icon">
+                <Link href="/worker/services">
+                  <List className="h-4 w-4 text-muted-foreground" />
+                </Link>
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">2</div>
