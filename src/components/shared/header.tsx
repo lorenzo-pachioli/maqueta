@@ -25,7 +25,7 @@ const workerNavItems = [
 
 export function Header() {
   const pathname = usePathname();
-  const isWorker = pathname.includes('/worker');
+  const isWorker = pathname.startsWith('/worker');
 
   const navItems = useMemo(() => isWorker ? workerNavItems : customerNavItems, [isWorker]);
   const homeHref = isWorker ? '/worker/dashboard' : '/customer/dashboard';

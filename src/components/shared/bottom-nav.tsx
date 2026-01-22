@@ -23,7 +23,7 @@ const workerNavItems = [
 
 export function BottomNav() {
   const pathname = usePathname();
-  const isWorker = pathname.includes('/worker');
+  const isWorker = pathname.startsWith('/worker');
   
   const navItems = useMemo(() => isWorker ? workerNavItems : customerNavItems, [isWorker]);
 
